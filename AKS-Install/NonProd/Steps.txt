@@ -1,0 +1,20 @@
+CommercialNonProd 10.242.0.0/20
+
+az group create -l westeurope -n CommercialNonProdRG
+
+az network vnet create --resource-group CommercialNonProdRG --name CommercialNonProdVNet --address-prefixes 10.242.0.0/20  --subnet-name CommercialNonProdSubnet  --subnet-prefix 10.242.0.0/24
+
+az ad sp create-for-rbac --output json
+
+$VNET_ID=(az network vnet show --resource-group CommercialNonProdRG --name CommercialNonProdVNet --query id -o tsv)
+$SUBNET_ID=(az network vnet subnet show --resource-group CommercialNonProdRG --vnet-name CommercialNonProdVNet --name CommercialNonProdSubnet --query id -o tsv)
+
+az role assignment create --assignee "xxxxxxxxxx" --scope $VNET_ID --role Contributor
+
+
+az aks create --resource-group CommercialNonProdRG --name CommercialNonProd --node-count 2 --generate-ssh-keys --network-plugin kubenet --service-cidr 10.240.0.0/20 --dns-service-ip 10.240.0.10 --pod-cidr 10.241.0.0/16 --docker-bridge-address 172.17.0.1/16 --vnet-subnet-id $SUBNET_ID --service-principal "xxxxxxxxxx" --client-secret "yyyyyyyyyy" --network-policy calico 
+
+
+az aks get-credentials -g CommercialNonProdRG --name CommercialNonProd
+
+kubectl get nodes

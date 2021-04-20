@@ -1,0 +1,15 @@
+PS C:\Users\kyalniz> az role assignment create --assignee "57f28555-0e2d-490f-8f39-7b519397b3c1" --scope $VNET_ID --role Contributor
+{
+  "canDelegate": null,
+  "condition": null,
+  "conditionVersion": null,
+  "description": null,
+  "id": "/subscriptions/307dd005-6d0b-408c-9a91-199dd207698a/resourceGroups/CommercialPreProdRG/providers/Microsoft.Network/virtualNetworks/CommercialPreProdVNet/providers/Microsoft.Authorization/roleAssignments/d6bcca87-5c5c-432c-8a5f-191b2f65a78c",
+  "name": "d6bcca87-5c5c-432c-8a5f-191b2f65a78c",
+  "principalId": "93477c57-119a-4465-b60a-220df945f363",
+  "principalType": "ServicePrincipal",
+  "resourceGroup": "CommercialPreProdRG",
+  "roleDefinitionId": "/subscriptions/307dd005-6d0b-408c-9a91-199dd207698a/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c",
+  "scope": "/subscriptions/307dd005-6d0b-408c-9a91-199dd207698a/resourceGroups/CommercialPreProdRG/providers/Microsoft.Network/virtualNetworks/CommercialPreProdVNet",
+  "type": "Microsoft.Authorization/roleAssignments"
+}

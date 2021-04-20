@@ -1,0 +1,56 @@
+PS C:\Users\kyalniz> az network vnet create --resource-group CommercialPreProdRG --name CommercialPreProdVNet --address-prefixes 10.242.16.0/20  --subnet-name CommercialPreProdSubnet  --subnet-prefix 10.242.16.0/24
+{
+  "newVNet": {
+    "addressSpace": {
+      "addressPrefixes": [
+        "10.242.16.0/20"
+      ]
+    },
+    "bgpCommunities": null,
+    "ddosProtectionPlan": null,
+    "dhcpOptions": {
+      "dnsServers": []
+    },
+    "enableDdosProtection": false,
+    "enableVmProtection": null,
+    "etag": "W/\"62012e59-15ac-495e-984d-bee1b3741aef\"",
+    "extendedLocation": null,
+    "id": "/subscriptions/307dd005-6d0b-408c-9a91-199dd207698a/resourceGroups/CommercialPreProdRG/providers/Microsoft.Network/virtualNetworks/CommercialPreProdVNet",
+    "ipAllocations": null,
+    "location": "westeurope",
+    "name": "CommercialPreProdVNet",
+    "provisioningState": "Succeeded",
+    "resourceGroup": "CommercialPreProdRG",
+    "resourceGuid": "00076862-64c4-48ca-8e70-ef75d1a3baa1",
+    "subnets": [
+      {
+        "addressPrefix": "10.242.16.0/24",
+        "addressPrefixes": null,
+        "delegations": [],
+        "etag": "W/\"62012e59-15ac-495e-984d-bee1b3741aef\"",
+        "id": "/subscriptions/307dd005-6d0b-408c-9a91-199dd207698a/resourceGroups/CommercialPreProdRG/providers/Microsoft.Network/virtualNetworks/CommercialPreProdVNet/subnets/CommercialPreProdSubnet",
+        "ipAllocations": null,
+        "ipConfigurationProfiles": null,
+        "ipConfigurations": null,
+        "name": "CommercialPreProdSubnet",
+        "natGateway": null,
+        "networkSecurityGroup": null,
+        "privateEndpointNetworkPolicies": "Enabled",
+        "privateEndpoints": null,
+        "privateLinkServiceNetworkPolicies": "Enabled",
+        "provisioningState": "Succeeded",
+        "purpose": null,
+        "resourceGroup": "CommercialPreProdRG",
+        "resourceNavigationLinks": null,
+        "routeTable": null,
+        "serviceAssociationLinks": null,
+        "serviceEndpointPolicies": null,
+        "serviceEndpoints": null,
+        "type": "Microsoft.Network/virtualNetworks/subnets"
+      }
+    ],
+    "tags": {},
+    "type": "Microsoft.Network/virtualNetworks",
+    "virtualNetworkPeerings": []
+  }
+}

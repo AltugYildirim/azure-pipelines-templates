@@ -1,0 +1,121 @@
+az aks create --resource-group CommercialNonProdRG --name CommercialNonProd --node-count 2 --generate-ssh-keys --network-plugin kubenet --service-cidr 10.240.0.0/20 --dns-service-ip 10.240.0.10 --pod-cidr 10.241.0.0/16 --docker-bridge-address 172.17.0.1/16 --vnet-subnet-id $SUBNET_ID --service-principal "b9902e9b-8555-4bca-93d3-892f95c7a8b3" --client-secret "wJ3.a1p~OpED-lCIbw.SiQ9yXyw1JrgIHa" --network-policy calico --enable-private-cluster
+
+{
+  "aadProfile": null,
+  "addonProfiles": null,
+  "agentPoolProfiles": [
+    {
+      "availabilityZones": null,
+      "count": 2,
+      "enableAutoScaling": null,
+      "enableEncryptionAtHost": null,
+      "enableNodePublicIp": false,
+      "kubeletConfig": null,
+      "kubeletDiskType": "OS",
+      "linuxOsConfig": null,
+      "maxCount": null,
+      "maxPods": 110,
+      "minCount": null,
+      "mode": "System",
+      "name": "nodepool1",
+      "nodeImageVersion": "AKSUbuntu-1804gen2containerd-2021.03.31",
+      "nodeLabels": {},
+      "nodePublicIpPrefixId": null,
+      "nodeTaints": null,
+      "orchestratorVersion": "1.19.9",
+      "osDiskSizeGb": 128,
+      "osDiskType": "Managed",
+      "osType": "Linux",
+      "podSubnetId": null,
+      "powerState": {
+        "code": "Running"
+      },
+      "provisioningState": "Succeeded",
+      "proximityPlacementGroupId": null,
+      "scaleSetEvictionPolicy": null,
+      "scaleSetPriority": null,
+      "spotMaxPrice": null,
+      "tags": null,
+      "type": "VirtualMachineScaleSets",
+      "upgradeSettings": null,
+      "vmSize": "Standard_DS2_v2",
+      "vnetSubnetId": "/subscriptions/307dd005-6d0b-408c-9a91-199dd207698a/resourceGroups/CommercialNonProdRG/providers/Microsoft.Network/virtualNetworks/CommercialNonProdVNet/subnets/CommercialNonProdSubnet"
+    }
+  ],
+  "apiServerAccessProfile": {
+    "authorizedIpRanges": null,
+    "enablePrivateCluster": true,
+    "privateDnsZone": "system"
+  },
+  "autoScalerProfile": null,
+  "autoUpgradeProfile": null,
+  "azurePortalFqdn": "a21a3659eedeb85e9da332e46a8342dc-priv.portal.hcp.westeurope.azmk8s.io",
+  "diskEncryptionSetId": null,
+  "dnsPrefix": "Commercial-CommercialNonPro-307dd0",
+  "enablePodSecurityPolicy": null,
+  "enableRbac": true,
+  "fqdn": null,
+  "fqdnSubdomain": null,
+  "id": "/subscriptions/307dd005-6d0b-408c-9a91-199dd207698a/resourcegroups/CommercialNonProdRG/providers/Microsoft.ContainerService/managedClusters/CommercialNonProd",
+  "identity": null,
+  "identityProfile": null,
+  "kubernetesVersion": "1.19.9",
+  "linuxProfile": {
+    "adminUsername": "azureuser",
+    "ssh": {
+      "publicKeys": [
+        {
+          "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFQoEX1i/OI783VHQl+3jSd++fISjlOyc6jl9gz8yvqOgehm76x1GBgqDFXToGxLf/M0fMVctfZRsAH2KiU6Ms5eY38hW0BRpHzn85moFMHgL8Dj+f5JJTycZJ+aTTQ6f0Pfd3mRQW3bH1/xEiIHr9y3/su10VHAt5Vpt3/TQHYxq2r9CEEIDHZbANWoaotNoh7yGva284UkUipnr+u+mqj/rNpOYPb5HNW3ncUHe+2HsXAaioEAdmm0Y10ir/3xzkX/ZgUE2n/ifpmQtWe8XfBxOT+hEqTTqeFoTba3NxhH6ruykgtlSyQuLPhM+1VQbKLiPfdDHPebtIaSffb1rB"
+        }
+      ]
+    }
+  },
+  "location": "westeurope",
+  "maxAgentPools": 100,
+  "name": "CommercialNonProd",
+  "networkProfile": {
+    "dnsServiceIp": "10.240.0.10",
+    "dockerBridgeCidr": "172.17.0.1/16",
+    "loadBalancerProfile": {
+      "allocatedOutboundPorts": null,
+      "effectiveOutboundIps": [
+        {
+          "id": "/subscriptions/307dd005-6d0b-408c-9a91-199dd207698a/resourceGroups/MC_CommercialNonProdRG_CommercialNonProd_westeurope/providers/Microsoft.Network/publicIPAddresses/84af0e13-0f82-4389-8a72-1abb97ce6af5",
+          "resourceGroup": "MC_CommercialNonProdRG_CommercialNonProd_westeurope"
+        }
+      ],
+      "idleTimeoutInMinutes": null,
+      "managedOutboundIps": {
+        "count": 1
+      },
+      "outboundIpPrefixes": null,
+      "outboundIps": null
+    },
+    "loadBalancerSku": "Standard",
+    "networkMode": null,
+    "networkPlugin": "kubenet",
+    "networkPolicy": "calico",
+    "outboundType": "loadBalancer",
+    "podCidr": "10.241.0.0/16",
+    "serviceCidr": "10.240.0.0/20"
+  },
+  "nodeResourceGroup": "MC_CommercialNonProdRG_CommercialNonProd_westeurope",
+  "podIdentityProfile": null,
+  "powerState": {
+    "code": "Running"
+  },
+  "privateFqdn": "commercial-commercialnonpro-307dd0-11a22246.5e51e6db-e2d8-437f-91a7-25bdee077484.privatelink.westeurope.azmk8s.io",
+  "provisioningState": "Succeeded",
+  "resourceGroup": "CommercialNonProdRG",
+  "servicePrincipalProfile": {
+    "clientId": "b9902e9b-8555-4bca-93d3-892f95c7a8b3",
+    "secret": null
+  },
+  "sku": {
+    "name": "Basic",
+    "tier": "Free"
+  },
+  "tags": null,
+  "type": "Microsoft.ContainerService/ManagedClusters",
+  "windowsProfile": null
+}
