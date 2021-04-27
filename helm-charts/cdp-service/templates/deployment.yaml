@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.application }}-{{ .Values.environment }}
+  labels:
+    app: {{ .Values.application }}-{{ .Values.environment }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.application }}-{{ .Values.environment }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.application }}-{{ .Values.environment }}
+    spec:
+      restartPolicy: 
+      imagePullSecrets:
+      - name: {{ .Values.image.imagePullSecret }}
+      containers:
+      - name: {{ .Values.application }}
+        {{ if eq .Values.environment "dev" }}
+        image: {{ .Values.image.dev.repository }}:{{ .Values.image.dev.tag }}
+        {{ else if eq .Values.environment "test" }}
+        image: {{ .Values.image.test.repository }}:{{ .Values.image.test.tag }}
+        {{ else if eq .Values.environment "preprod" }}
+        image: {{ .Values.image.preprod.repository }}:{{ .Values.image.preprod.tag }}
+        {{ else if eq .Values.environment "prod" }}
+        image: {{ .Values.image.prod.repository }}:{{ .Values.image.prod.tag }}
+        {{ end }}
+        ports:
+        - containerPort: {{ .Values.containerPort }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: "{{ .Values.resources.requests.memory }}"
+            # limits:
+            # cpu: {{ .Values.resources.limits.cpu }}
+            # memory: "{{ .Values.resources.limits.memory }}"
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          valueFrom:
+            secretKeyRef:
+              name: sec-{{ .Values.application }}-{{ .Values.environment }}
+              key: connection-string-default-conn
+        - name: FletumApiBaseUrl
+          valueFrom:
+            configMapKeyRef:
+              name: cm-{{ .Values.application }}-{{ .Values.environment }}
+              key: fletum-api-base-url
+        - name: ValidationMicroserviceBaseUrl
+          valueFrom:
+            configMapKeyRef:
+              name: cm-{{ .Values.application }}-{{ .Values.environment }}
+              key: validation-microservice-base-url
+        - name: IdentityMicroserviceBaseUrl
+          valueFrom:
+            configMapKeyRef:
+              name: cm-{{ .Values.application }}-{{ .Values.environment }}
+              key: identity-microservice-base-url
+        - name: CreateEntityBaseUrl
+          valueFrom:
+            configMapKeyRef:
+              name: cm-{{ .Values.application }}-{{ .Values.environment }}
+              key: create-entity-base-url
+        - name: OtpServiceBaseUrl
+          valueFrom:
+            configMapKeyRef:
+              name: cm-{{ .Values.application }}-{{ .Values.environment }}
+              key: otp-service-base-url
+        - name: TelegramChatId
+          valueFrom:
+            secretKeyRef:
+              name: sec-{{ .Values.application }}-{{ .Values.environment }}
+              key: telegram-chatid
+        - name: TelegramKey
+          valueFrom:
+            secretKeyRef:
+              name: sec-{{ .Values.application }}-{{ .Values.environment }}
+              key: telegram-key
+        - name: URLs
+          valueFrom:
+            configMapKeyRef:
+              name: cm-{{ .Values.application }}-{{ .Values.environment }}
+              key: urls

@@ -20,23 +20,23 @@ spec:
       - name: cdp
         image: dcxregistry.azurecr.io/fletum/cdp-service
         env:
-            - name: ConnectionStrings__DefaultConnection
-              value: "Data Source=10.0.204.105;Initial Catalog=CCICDPTest;Persist Security Info=True;User ID=dcxcdpdevuser;Password=Ddffvv!12dfggh;MultipleActiveResultSets=True;" #secret
-            - name: FletumApiBaseUrl
-              value: "https://dcx-cdp-core-test-api.azurewebsites.net"
-            - name: ValidationMicroserviceBaseUrl
-              value: "http://validation-service:8010"
-            - name: IdentityMicroserviceBaseUrl
-              value: "http://identity-service:8989"
-            - name: CreateEntityBaseUrl
-              value: "https://dcx-cdp-core-test-api.azurewebsites.net"
-            - name: OtpServiceBaseUrl
-              value: "http://otp-service:8089"
-            - name: TelegramChatId
-              value: "-328817889" #secret
-            - name: TelegramKey
-              value: "1696156727:AAHTmrUI9sMLl53nQhmIF6CARrhw9r5mIWY" #secret
-            - name: URLs
-              value: "http://cdp-service:5500"
+        - name: ConnectionStrings__DefaultConnection
+          value: "Data Source=10.0.204.105;Initial Catalog=CCICDPTest;Persist Security Info=True;User ID=dcxcdpdevuser;Password=Ddffvv!12dfggh;MultipleActiveResultSets=True;" #secret
+        - name: FletumApiBaseUrl
+          value: "https://dcx-cdp-core-test-api.azurewebsites.net"
+        - name: ValidationMicroserviceBaseUrl
+          value: "http://validation-service:8010"
+        - name: IdentityMicroserviceBaseUrl
+          value: "http://identity-service:8989"
+        - name: CreateEntityBaseUrl
+          value: "https://dcx-cdp-core-test-api.azurewebsites.net"
+        - name: OtpServiceBaseUrl
+          value: "http://otp-service:8089"
+        - name: TelegramChatId
+          value: "-328817889" #secret
+        - name: TelegramKey
+          value: "1696156727:AAHTmrUI9sMLl53nQhmIF6CARrhw9r5mIWY" #secret
+        - name: URLs
+          value: "http://cdp-service:5500"
         ports:
         - containerPort: 5500
