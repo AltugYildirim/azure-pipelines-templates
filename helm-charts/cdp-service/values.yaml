@@ -28,7 +28,7 @@ resources:
 image:
   imagePullSecret: dcxregistry
   dev:
-    repository: nginx
+    repository: dcxregistry.azurecr.io/fletum/cdp-service
     tag: latest
   test:
     repository: dcxregistry.azurecr.io/fletum/cdp-service
