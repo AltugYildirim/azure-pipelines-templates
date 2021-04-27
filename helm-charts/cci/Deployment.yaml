@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cdp
+  labels:
+    app: cdp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cdp
+  template:
+    metadata:
+      labels:
+        app: cdp
+    spec:
+      imagePullSecrets:
+      - name: dcxregistry
+      containers:
+      - name: cdp
+        image: dcxregistry.azurecr.io/fletum/cdp-service
+        env:
+            - name: ConnectionStrings__DefaultConnection
+              value: "Data Source=10.0.204.105;Initial Catalog=CCICDPTest;Persist Security Info=True;User ID=dcxcdpdevuser;Password=Ddffvv!12dfggh;MultipleActiveResultSets=True;"
+            - name: FletumApiBaseUrl
+              value: "https://dcx-cdp-core-test-api.azurewebsites.net"
+            - name: ValidationMicroserviceBaseUrl
+              value: "http://validation-service:8010"
+            - name: IdentityMicroserviceBaseUrl
+              value: "http://identity-service:8989"
+            - name: CreateEntityBaseUrl
+              value: "https://dcx-cdp-core-test-api.azurewebsites.net"
+            - name: OtpServiceBaseUrl
+              value: "http://otp-service:8089"
+            - name: TelegramChatId
+              value: "-328817889"
+            - name: TelegramKey
+              value: "1696156727:AAHTmrUI9sMLl53nQhmIF6CARrhw9r5mIWY"
+            - name: URLs
+              value: "http://cdp-service:5500"
+        ports:
+        - containerPort: 5500
