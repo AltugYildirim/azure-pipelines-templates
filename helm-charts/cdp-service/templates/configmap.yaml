@@ -11,13 +11,6 @@ data:
   create-entity-base-url: "{{ .Values.dev.create_entity_base_url }}"
   otp-service-base-url: "{{ .Values.dev.otp_service_base_url }}"
   urls: "{{ .Values.dev.urls }}"
-  {{ else if eq .Values.environment "test" }}
-  fletum-api-base-url: "{{ .Values.test.fletum_api_base_url }}"
-  validation-microservice-base-url: "{{ .Values.test.validation_microservice_base_url }}"
-  identity-microservice-base-url: "{{ .Values.test.identity_microservice_base_url }}"
-  create-entity-base-url: "{{ .Values.test.create_entity_base_url }}"
-  otp-service-base-url: "{{ .Values.test.otp_service_base_url }}"
-  urls: "{{ .Values.test.urls }}"
   {{ else if eq .Values.environment "preprod" }}
   fletum-api-base-url: "{{ .Values.preprod.fletum_api_base_url }}"
   validation-microservice-base-url: "{{ .Values.preprod.validation_microservice_base_url }}"
