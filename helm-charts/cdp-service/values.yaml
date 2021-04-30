@@ -20,10 +20,10 @@ replicas: 1
 resources:
   requests:
     cpu: 150m
-    memory: 20971520
+    memory: 500Mi
   limits:
-    cpu: 300m
-    memory: 41943040
+    cpu: 500m
+    memory: 1Gi
 
 image:
   imagePullSecret: dcxregistry
