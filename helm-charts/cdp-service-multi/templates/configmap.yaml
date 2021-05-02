@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-{{ .Values.application }}-{{ .Values.environment }}
+  namespace: {{ .Release.Namespace }}
+data:
+  fletum-api-base-url: "{{ .Values.fletum_api_base_url }}"
+  validation-microservice-base-url: "{{ .Values.validation_microservice_base_url }}"
+  identity-microservice-base-url: "{{ .Values.identity_microservice_base_url }}"
+  create-entity-base-url: "{{ .Values.create_entity_base_url }}"
+  otp-service-base-url: "{{ .Values.otp_service_base_url }}"
+  urls: "{{ .Values.urls }}"
