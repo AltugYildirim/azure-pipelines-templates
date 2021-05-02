@@ -30,6 +30,9 @@ image:
   dev:
     repository: dcxregistry.azurecr.io/fletum/cdp-service
     tag: latest
+  test:
+    repository: dcxregistry.azurecr.io/fletum/cdp-service
+    tag: latest
   preprod:
     repository: dcxregistry.azurecr.io/fletum/cdp-service
     tag: latest
@@ -49,6 +52,17 @@ dev:
   connection_string_default_conn: "Data Source=10.0.204.105;Initial Catalog=CCICDPTest;Persist Security Info=True;User ID=dcxcdpdevuser;Password=Ddffvv!12dfggh;MultipleActiveResultSets=True;"
   telegram_chatid: "-328817889"
   telegram_key: "1696156727:AAHTmrUI9sMLl53nQhmIF6CARrhw9r5mIWY"
+test:
+  fletum_api_base_url: tempTestValue
+  validation_microservice_base_url: tempTestValue
+  identity_microservice_base_url: tempTestValue
+  create_entity_base_url: tempTestValue
+  otp_service_base_url: tempTestValue
+  urls: tempTestValue
+  ###### SECRETS ######
+  connection_string_default_conn: tempTestValue
+  telegram_chatid: tempTestValue
+  telegram_key: tempTestValue
 preprod:
   fletum_api_base_url: preprodValue
   validation_microservice_base_url: preprodValue

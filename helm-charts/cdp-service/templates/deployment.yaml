@@ -22,6 +22,8 @@ spec:
       - name: {{ .Values.application }}
         {{ if eq .Values.environment "dev" }}
         image: {{ .Values.image.dev.repository }}:{{ .Values.image.dev.tag }}
+        {{ else if eq .Values.environment "test" }}
+        image: {{ .Values.image.test.repository }}:{{ .Values.image.test.tag }}
         {{ else if eq .Values.environment "preprod" }}
         image: {{ .Values.image.preprod.repository }}:{{ .Values.image.preprod.tag }}
         {{ else if eq .Values.environment "prod" }}
