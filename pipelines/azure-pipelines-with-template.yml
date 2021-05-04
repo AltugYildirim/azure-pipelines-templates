@@ -1,0 +1,32 @@
+trigger:
+- master
+pool:
+  vmImage: 'ubuntu-latest'
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:  
+  - job: Build_web
+    displayName: Build Web
+    steps:
+      - template: ./build-template.yml
+        parameters:
+          workingDirectory: '$(Build.Repository.LocalPath)/src'
+- stage: Test
+  displayName: Test stage
+  jobs:  
+  - job: Test_api
+    displayName: Test API
+    steps:
+      - template: ./sonarcloud-template.yml
+        parameters:
+          workingDirectory: '$(Build.Repository.LocalPath)/src'
+- stage: Build_dockerimage
+  displayName: Build and push image to ACR stage
+  jobs:  
+  - job: Build_api_dockerimage
+    displayName: Build and push API image
+    steps:
+      - template: ./docker-template.yml
+        parameters:
+          workingDirectory: '$(Build.Repository.LocalPath)/Dockerfile'

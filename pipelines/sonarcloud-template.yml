@@ -1,0 +1,18 @@
+parameters:
+- name: workingDirectory 
+  type: string 
+  default: ''
+steps:
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'altugyildirim1993'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'altugyildirim1993_rating-web.git'
+    cliProjectName: 'rating-web.git'
+    cliSources: '${{ parameters.workingDirectory }}'
+- task: SonarCloudAnalyze@1
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
