@@ -1,0 +1,58 @@
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- develop
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+  buildDate: '$(date +%Y-%m-%d)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DcxRegistry'
+        repository: 'fletum/cdp-service'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: 'dev-2.10.7'
+
+- stage: Delivery
+  displayName: Delivery with ArgoCD
+  jobs:
+  - job: ArgoCD
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: CmdLine@2
+      displayName: Copy ArgoCD
+      inputs:
+        script: |
+          curl -sSL -o $(System.DefaultWorkingDirectory)/argocd https://github.com/argoproj/argo-cd/releases/download/v2.0.1/argocd-linux-amd64
+    - task: CmdLine@2
+      displayName: Install ArgoCD
+      inputs:
+        script: |
+          chmod +x $(System.DefaultWorkingDirectory)/argocd
+    - task: CmdLine@2
+      displayName: Login ArgoCD
+      inputs:
+        script: |
+          $(System.DefaultWorkingDirectory)/argocd --insecure --grpc-web login 51.138.96.39:443 --username admin --password cLKepNKCWDzzMiWx
+    - task: CmdLine@2
+      displayName: ArgoCD Delivery
+      inputs:
+        script: |
+          $(System.DefaultWorkingDirectory)/argocd app set cdp-service-test -p image.tag=dev-2.10.7 -p service.type=LoadBalancer
