@@ -1,0 +1,25 @@
+parameters:
+- name: workingDirectory 
+  type: string 
+  default: ''
+steps:
+- task: CmdLine@2
+  displayName: Copy ArgoCD
+  inputs:
+    script: |
+      curl -sSL -o $(System.DefaultWorkingDirectory)/argocd https://github.com/argoproj/argo-cd/releases/download/v2.0.1/argocd-linux-amd64
+- task: CmdLine@2
+  displayName: Install ArgoCD
+  inputs:
+    script: |
+      chmod +x $(System.DefaultWorkingDirectory)/argocd
+- task: CmdLine@2
+  displayName: Login ArgoCD
+  inputs:
+    script: |
+      echo "$(System.DefaultWorkingDirectory)/argocd --insecure --grpc-web login yyyyy:443 --username $(argocdUsername) --password xxxxxxx"
+- task: CmdLine@2
+  displayName: ArgoCD Delivery
+  inputs:
+    script: |
+      echo "$(System.DefaultWorkingDirectory)/argocd app set cdp-service-test -p image.tag=dev-2.10.7 -p service.type=LoadBalancer"

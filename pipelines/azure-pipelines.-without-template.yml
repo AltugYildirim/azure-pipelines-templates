@@ -10,11 +10,14 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
+  argocdUsername: 'admin'
   buildDate: '$(date +%Y-%m-%d)'
+  isMaster: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
 stages:
 - stage: Build
   displayName: Build image
+  condition: and(succeeded(), eq(variables.isMaster, true))
   jobs:
   - job: Build
     displayName: Build
@@ -50,7 +53,7 @@ stages:
       displayName: Login ArgoCD
       inputs:
         script: |
-          $(System.DefaultWorkingDirectory)/argocd --insecure --grpc-web login 51.138.96.39:443 --username admin --password cLKepNKCWDzzMiWx
+          $(System.DefaultWorkingDirectory)/argocd --insecure --grpc-web login yyyyy:443 --username $(argocdUsername) --password xxxxxxx
     - task: CmdLine@2
       displayName: ArgoCD Delivery
       inputs:
