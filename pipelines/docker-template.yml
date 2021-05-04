@@ -2,12 +2,14 @@ parameters:
 - name: workingDirectory 
   type: string 
   default: ''
+- name: quay_password 
+  type: string 
+  default: ''
 steps:
-- task: Docker@2
-  displayName: Build and push an image to ACR
+- task: CmdLine@2
+  displayName: Docker Commands 
   inputs:
-    containerRegistry: 'quayio'
-    repository: 'altugyildirim'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
-    tags: '$(Build.BuildId)'
+    script: |
+      docker build -t quay.io/swoturkey/rating-web:$(Build.BuildId) .
+      docker login quay.io -u swoturkey -p $(quay_password)
+      docker push quay.io/swoturkey/rating-web:$(Build.BuildId)
