@@ -1,0 +1,44 @@
+# Default values for bpm-service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Common controls
+environment: dev
+application: bpm-service
+containerPort: 8087
+
+# Service controls
+service:
+  name: bpm-service-svc
+  type: ClusterIP
+  port: 8087
+
+# Deployment controls
+restartPolicy: Always
+
+replicas: 1
+resources:
+  requests:
+    cpu: 150m
+    memory: 500Mi
+  limits:
+    cpu: 500m
+    memory: 1Gi
+
+image:
+  imagePullSecret: dcxregistry
+  repository: dcxregistry.azurecr.io/fletum/bpm-service
+  tag: latest
+
+# ConfigMap controls
+urls: http://bpm-service:8087
+
+registrySecret:
+  name: acr-registry
+  config: {
+        "auths": {
+                "dcxregistry.azurecr.io": {
+                        "auth": ""
+                }
+          }
+  }
