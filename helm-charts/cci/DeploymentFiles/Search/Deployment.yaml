@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search
+  labels:
+    app: search
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: search
+  template:
+    metadata:
+      labels:
+        app: search
+    spec:
+      imagePullSecrets:
+      - name: dcxregistry
+      containers:
+      - name: search
+        image: dcxregistry.azurecr.io/fletum/search-service
+        ports:
+        - containerPort: 9201

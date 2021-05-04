@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  labels:
+    app: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      imagePullSecrets:
+      - name: dcxregistry
+      containers:
+      - name: db
+        image: dcxregistry.azurecr.io/integration/db-module
+        ports:
+        - containerPort: 7081

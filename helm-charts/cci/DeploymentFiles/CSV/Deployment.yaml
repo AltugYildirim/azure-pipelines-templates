@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: csv
+  labels:
+    app: csv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csv
+  template:
+    metadata:
+      labels:
+        app: csv
+    spec:
+      imagePullSecrets:
+      - name: dcxregistry
+      containers:
+      - name: csv
+        image: dcxregistry.azurecr.io/integration/csv
+        ports:
+        - containerPort: 7050

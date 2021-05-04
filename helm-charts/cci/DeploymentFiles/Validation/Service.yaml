@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: validation-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8010
+  selector:
+    app: validation
