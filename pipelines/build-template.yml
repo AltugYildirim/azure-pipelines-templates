@@ -5,17 +5,47 @@ parameters:
 - name: buildProject
   type: boolean
   default: false
+- name: 'toolset'
+  default: dotnet
+  type: string
+  values:
+  - msbuild
+  - dotnet
+  - nodejs
+  
+  
 steps:
+# nodejs
+- ${{ if eq(parameters.toolset, 'nodejs') }}:
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
-  displayName: 'Install Node.js'
+    displayName: 'Install Node.js'
 - script: |
     npm install
-  workingDirectory: '${{ parameters.workingDirectory }}'
-  displayName: 'npm install'
+    workingDirectory: '${{ parameters.workingDirectory }}'
+    displayName: 'npm install'
 - script: |
     npm install
-  workingDirectory: '${{ parameters.workingDirectory }}'
-  condition: ${{ parameters.buildProject }}
-  displayName: 'npm build'
+    workingDirectory: '${{ parameters.workingDirectory }}'
+    condition: ${{ parameters.buildProject }}
+    displayName: 'npm build'
+
+# msbuild
+- ${{ if eq(parameters.toolset, 'msbuild') }}:
+  - task: MSBuild@1
+    inputs:
+      solution: '${{ parameters.workingDirectory }}/*.sln'
+      msbuildArchitecture: 'x64'
+
+# dotnet
+- ${{ if eq(parameters.toolset, 'dotnet') }}:
+  - task: CmdLine@2
+    inputs:
+      script: 'ls ${{ parameters.workingDirectory }}'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'build'
+      projects: '${{ parameters.workingDirectory }}/*.csproj'
+
+    
