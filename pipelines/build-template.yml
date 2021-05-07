@@ -12,6 +12,7 @@ parameters:
   - msbuild
   - dotnet
   - nodejs
+  - none
   
   
 steps:
@@ -48,5 +49,12 @@ steps:
     inputs:
       command: 'build'
       projects: '${{ parameters.workingDirectory }}/*.csproj'
+ 
+ # none
+- ${{ if eq(parameters.toolset, 'none') }}:
+  - task: CmdLine@2
+    displayName: Build Process is skipped
+    inputs:
+      script: |
+        echo "Build Process is skipped!"
 
-    
