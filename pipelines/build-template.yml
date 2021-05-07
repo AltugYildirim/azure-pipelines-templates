@@ -33,19 +33,19 @@ steps:
 
 # msbuild
 - ${{ if eq(parameters.toolset, 'msbuild') }}:
-  - task: MSBuild@1
-    inputs:
-      solution: '${{ parameters.workingDirectory }}/*.sln'
-      msbuildArchitecture: 'x64'
+- task: MSBuild@1
+  inputs:
+    solution: '${{ parameters.workingDirectory }}/*.sln'
+    msbuildArchitecture: 'x64'
 
 # dotnet
 - ${{ if eq(parameters.toolset, 'dotnet') }}:
-  - task: CmdLine@2
-    inputs:
-      script: 'ls ${{ parameters.workingDirectory }}'
-  - task: DotNetCoreCLI@2
-    inputs:
-      command: 'build'
-      projects: '${{ parameters.workingDirectory }}/*.csproj'
+- task: CmdLine@2
+  inputs:
+    script: 'ls ${{ parameters.workingDirectory }}'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '${{ parameters.workingDirectory }}/*.csproj'
 
     
