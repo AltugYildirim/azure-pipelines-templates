@@ -11,5 +11,5 @@ steps:
   inputs:
     script: |
       docker build -t quay.io/swoturkey/rating-web:$(Build.BuildId) .
-      docker login quay.io -u swoturkey -p $(quay_password)
+      docker login quay.io -u swoturkey -p '${{ parameters.quay_password }}'
       docker push quay.io/swoturkey/rating-web:$(Build.BuildId)
