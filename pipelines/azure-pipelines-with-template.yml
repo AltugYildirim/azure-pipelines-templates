@@ -1,7 +1,20 @@
-trigger:
-- master
+#trigger:
+
+#- master
 pool:
   vmImage: 'ubuntu-latest'
+resources:
+  repositories:
+  - repository: self
+    type: git
+    name: CCI/rating-web.git
+    trigger:
+    - master
+  - repository: templates
+    type: github
+    name: altugyildirim/azure-pipelines-templates
+    endpoint: github
+
 stages:
 - stage: Build
   displayName: Build stage
@@ -9,16 +22,17 @@ stages:
   - job: Build_web
     displayName: Build Web
     steps:
-      - template: ./pipelines/build-template.yml
+      - template: ./pipelines/build-template.yml@templates
         parameters:
           workingDirectory: '$(Build.Repository.LocalPath)/src'
+          toolset: none
 - stage: Test
   displayName: Test stage
   jobs:  
   - job: Test_web
     displayName: Test web
     steps:
-      - template: ./pipelines/sonarcloud-template.yml
+      - template: ./pipelines/sonarcloud-template.yml@templates
         parameters:
           workingDirectory: '$(Build.Repository.LocalPath)/src'
 - stage: Build_dockerimage
@@ -27,7 +41,7 @@ stages:
   - job: Build_web_dockerimage
     displayName: Build and push web image
     steps:
-      - template: ./pipelines/docker-template.yml
+      - template: ./pipelines/docker-template.yml@templates
         parameters:
           workingDirectory: '$(Build.Repository.LocalPath)/'
           quay_password: '$(quay_password)'
@@ -37,6 +51,6 @@ stages:
   - job: ArgoCD_Delivery 
     displayName: ArgoCD Delivery steps
     steps:
-      - template: ./pipelines/argocd-delivery-template.yml
+      - template: ./pipelines/argocd-delivery-template.yml@templates
         parameters:
           workingDirectory: '$(Build.Repository.LocalPath)/.'
