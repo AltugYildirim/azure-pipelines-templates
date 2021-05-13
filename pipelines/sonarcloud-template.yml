@@ -2,7 +2,11 @@ parameters:
 - name: workingDirectory 
   type: string 
   default: ''
+- name: isRunning 
+  type: string 
+  default: 'No'
 steps:
+- ${{ if eq(parameters.isRunning, 'Yes') }}:
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'SonarCloud'
