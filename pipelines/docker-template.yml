@@ -13,3 +13,19 @@ steps:
       docker build -t quay.io/swoturkey/rating-web:$(Build.BuildId) .
       docker login quay.io -u swoturkey -p '${{ parameters.quay_password }}'
       docker push quay.io/swoturkey/rating-web:$(Build.BuildId)
+
+
+#rating-web yerine app_name parametresi olmalı.
+- task: Docker@2
+  displayName: 'Save image to TAR'
+  inputs:
+    repository: 'rating-web'
+    command: save
+    arguments: '--output $(build.artifactstagingdirectory)/rating-web.image.tar quay.io/swoturkey/rating-web:$(Build.BuildId)'
+    addPipelineData: false
+   
+- task: PublishPipelineArtifact@1
+  displayName: 'Publishing Image as Pipeline Artifact'
+  inputs:
+    path: $(build.artifactstagingdirectory)
+    artifact: ContainerImage
