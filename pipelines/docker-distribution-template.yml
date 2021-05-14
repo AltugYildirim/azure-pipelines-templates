@@ -6,6 +6,11 @@ parameters:
   type: string 
   default: ''
 steps:
+- task: Docker@2
+  displayName: 'Load Image from Tar'
+  inputs:
+    command: load
+    arguments: '--input $(Pipeline.Workspace)/ContainerImage/rating-web.image.tar'
 - task: CmdLine@2
   displayName: ReTag Image and Push
   inputs:
