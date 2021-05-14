@@ -5,6 +5,9 @@ parameters:
 - name: quay_password 
   type: string 
   default: ''
+- name: environment 
+  type: string 
+  default: ''
 steps:
 - task: Docker@2
   displayName: 'Load Image from Tar'
@@ -15,7 +18,7 @@ steps:
   displayName: ReTag Image and Push
   inputs:
     script: |
-      docker build -t quay.io/swoturkey/rating-web:$(Build.BuildId) .
+      docker build -t quay.io/swoturkey/rating-web:${{ parameters.environment }}-$(Build.BuildId) .
       docker login quay.io -u swoturkey -p '${{ parameters.quay_password }}'
-      docker push quay.io/swoturkey/rating-web:$(Build.BuildId)
+      docker push quay.io/swoturkey/rating-web:${{ parameters.environment }}-$(Build.BuildId)
 #rating-web yerine app_name parametresi olmalı.
