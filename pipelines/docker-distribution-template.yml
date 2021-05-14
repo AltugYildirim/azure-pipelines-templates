@@ -19,6 +19,6 @@ steps:
   inputs:
     script: |
       docker tag  quay.io/swoturkey/rating-web:$(Build.BuildId)  quay.io/swoturkey/rating-web:${{ parameters.environment }}-$(Build.BuildId)
-      docker login quay.io -u swoturkey -p '${{ parameters.quay_password }}'
+      docker login quay.io -u swoturkey -p '$(quay_password)'
       docker push quay.io/swoturkey/rating-web:${{ parameters.environment }}-$(Build.BuildId)
 #rating-web yerine app_name parametresi olmalı.
